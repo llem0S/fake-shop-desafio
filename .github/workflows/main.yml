@@ -42,4 +42,4 @@ jobs:
            manifests: |
               k8s/deployment.yaml
            images: |
-            llem0s/fake-shop-desafio:v${{ github.run_number }}'
+            llem0s/fake-shop-desafio:v${{ github.run_number }}
