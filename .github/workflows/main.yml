@@ -8,9 +8,21 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Obter código"
-      - run: echo "Executar o Docker Build"
-      - run: echo "Enviar a imagem Docker para o Docker Hub"
+      - name: Obtendo o codigo
+        uses: actions/checkout@v4.2.2
+      - name: Executar o Docker Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Contrucao e Envio da Imagem docker
+        uses: docker/build-push-action@v6
+        with:
+          context: ./src
+          push: true
+          file: ./src/Dockerfile
+          tags: llem0s/fake-shop-desafio:v1
+      
   CD: 
     needs: [CI]
     runs-on: ubuntu-latest
